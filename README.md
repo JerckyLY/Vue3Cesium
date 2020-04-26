@@ -7,3 +7,4 @@
  -  模型数据如果是静态文件访问，放入public文件夹下访问
 
 ### 结果
+ ![结果](https://github.com/JerckyLY/Vue3Cesium/blob/master/public/view.png)
