@@ -24,20 +24,26 @@ export default {
                 geocoder: false,
                 scene3DOnly: true,
                 homeButton: true,
-                imageryProvider: new Cesium.UrlTemplateImageryProvider({
-                    url: 'http://www.google.cn/maps/vt?lyrs=s&x={x}&y={y}&z={z}',
-                    credit: '',
-                    tilingScheme: new Cesium.WebMercatorTilingScheme()
+                imageryProvider: new Cesium.WebMapTileServiceImageryProvider({
+                    url: "http://{s}.tianditu.gov.cn/vec_w/wmts?service=wmts&request=GetTile&version=1.0.0" +
+                        "&LAYER=vec&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}" +
+                        "&style=default&format=tiles&tk=f47269183506137375ed3a960cb675cd",
+                    layer: "vec_w",
+                    style: "default",
+                    format: "tiles",
+                    tileMatrixSetID: "GoogleMapsCompatible",
+                    subdomains: ["t0", "t1", "t2", "t3", "t4", "t5", "t6", "t7"], //天地图8个服务器
+                    minimumLevel: 0,
+                    maximumLevel: 18,
                 }),
-                mapProjection: new Cesium.WebMercatorProjection()
             });
-            let tdt =  $CViewer.scene.imageryLayers.addImageryProvider(new Cesium.WebMapTileServiceImageryProvider({
-                url: "http://t0.tianditu.com/cva_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=cva&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles&tk=f47269183506137375ed3a960cb675cd",
-                layer: "tdtAnnoLayer",
-                style: "default",
-                format: "image/jpeg",
-                tileMatrixSetID: "GoogleMapsCompatible"
-            }));
+            // let tdt =  $CViewer.scene.imageryLayers.addImageryProvider(new Cesium.WebMapTileServiceImageryProvider({
+            //     url: "http://t0.tianditu.com/vec_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=cva&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles&tk=f47269183506137375ed3a960cb675cd",
+            //     layer: "tdtAnnoLayer",
+            //     style: "default",
+            //     format: "image/jpeg",
+            //     tileMatrixSetID: "GoogleMapsCompatible"
+            // }));
 
             const tileset = new Cesium.Cesium3DTileset({
                 url: 'Cesium3DTiles/Tilesets/Tileset/tileset.json'

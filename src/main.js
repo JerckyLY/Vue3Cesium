@@ -11,32 +11,32 @@ console.log(process.env.VUE_APP_Authorization)
 // axios.defaults.baseURL = process.env.VUE_APP_SERVICE
 // axios.defaults.headers['Authorization'] = process.env.VUE_APP_Authorization
 
-// 拦截请求
-axios.interceptors.request.use((config) => {
-    const getTokenUrl = process.env.VUE_APP_HB_SERVICE + process.env.VUE_APP_SERVICE_TOKEN_API
-    if(config.url === getTokenUrl){
-        return config
-    }
-    if(!window.localStorage.getItem('HB_SERVICE_API_TOKEN')){
-        getToken()
-    }
-    let expireTime = parseInt(window.localStorage.getItem('HB_SERVICE_API_EXPIRETIME'))
-    let now = new Date().getTime()
-    // 让token早10秒种过期
-    if (now - expireTime >= -10) {
-        window.localStorage.removeItem('HB_SERVICE_API_TOKEN')
-        window.localStorage.removeItem('HB_SERVICE_API_EXPIRETIME')
-        getToken()
-        // location.reload()
-    }
-    // 有 token就带上
-    if (window.localStorage.getItem('HB_SERVICE_API_TOKEN')) {
-        config.headers.Authorization = window.localStorage.getItem('HB_SERVICE_API_TOKEN')
-    }
-    return config
-}, (error) => {
-    return Promise.reject(error)
-})
+// // 拦截请求
+// axios.interceptors.request.use((config) => {
+//     const getTokenUrl = process.env.VUE_APP_HB_SERVICE + process.env.VUE_APP_SERVICE_TOKEN_API
+//     if(config.url === getTokenUrl){
+//         return config
+//     }
+//     if(!window.localStorage.getItem('HB_SERVICE_API_TOKEN')){
+//         getToken()
+//     }
+//     let expireTime = parseInt(window.localStorage.getItem('HB_SERVICE_API_EXPIRETIME'))
+//     let now = new Date().getTime()
+//     // 让token早10秒种过期
+//     if (now - expireTime >= -10) {
+//         window.localStorage.removeItem('HB_SERVICE_API_TOKEN')
+//         window.localStorage.removeItem('HB_SERVICE_API_EXPIRETIME')
+//         getToken()
+//         // location.reload()
+//     }
+//     // 有 token就带上
+//     if (window.localStorage.getItem('HB_SERVICE_API_TOKEN')) {
+//         config.headers.Authorization = window.localStorage.getItem('HB_SERVICE_API_TOKEN')
+//     }
+//     return config
+// }, (error) => {
+//     return Promise.reject(error)
+// })
 Vue.prototype.$axios = axios
 // Vue.prototype.$axios.defaults.baseURL = process.env.VUE_APP_HB_SERVICE
 
